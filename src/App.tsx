@@ -1,5 +1,14 @@
+import { useThemeStore } from "./store/useThemeStore";
+import NavBar from "./components/NavBar";
+
 function App() {
-  return <div className="text-3xl text-blue-600">Hello World</div>;
+  const { theme } = useThemeStore();
+
+  return (
+    <div className="h-screen" data-theme={theme}>
+      <NavBar />
+    </div>
+  );
 }
 
 export default App;
