@@ -1,12 +1,19 @@
 import { useThemeStore } from "./store/useThemeStore";
-import NavBar from "./components/NavBar";
+import { Route, Routes } from "react-router";
+import Home from "./pages/Home.tsx";
+import Login from "./pages/Login.tsx";
+import Register from "./pages/Register.tsx";
 
 function App() {
   const { theme } = useThemeStore();
 
   return (
     <div className="h-screen" data-theme={theme}>
-      <NavBar />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
     </div>
   );
 }
