@@ -29,7 +29,7 @@ function NavBar() {
   };
 
   return (
-    <div className="container flex justify-between items-center mx-auto py-4">
+    <header className="container flex justify-between items-center mx-auto py-4">
       {/* Logo */}
       <Link to="/home" className="flex justify-center items-center gap-5">
         <img src={TaskRocketLogo} alt="Rocket logo" className="w-[100px]" />
@@ -37,7 +37,7 @@ function NavBar() {
       </Link>
 
       {/* Auth buttons */}
-      <div className="flex mr-10 gap-4 justify-center items-center">
+      <nav className="flex mr-10 gap-4 justify-center items-center">
         <ThemeSelector />
 
         {user ? (
@@ -62,8 +62,8 @@ function NavBar() {
             </Link>
           </>
         )}
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 }
 
