@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Rocket } from "lucide-react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../auth/firebase";
 
 function Register() {
   const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,7 +16,16 @@ function Register() {
     setError("");
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await updateProfile(userCredential.user, {
+        displayName: fullName,
+      });
+
       navigate("/home");
     } catch (err: any) {
       setError(err.message);
@@ -28,7 +38,7 @@ function Register() {
 
       <form
         onSubmit={handleRegister}
-        className="flex flex-col lg:flex-row w-full max-w-5xl bg-base-100 rounded-2xl shadow-lg overflow-hidden border border-primary/20  md:min-h-[650px]"
+        className="flex flex-col lg:flex-row w-full max-w-5xl bg-base-100 rounded-2xl shadow-lg overflow-hidden border border-primary/20 md:min-h-[650px]"
       >
         {/* LEFT SIDE - FORM SECTION */}
         <div className="w-full lg:w-[45%] p-6 sm:p-10 flex flex-col justify-center gap-6">
@@ -55,6 +65,8 @@ function Register() {
               type="text"
               placeholder="Enter your full name"
               className="input input-bordered w-full rounded-md focus:ring-2 focus:ring-primary"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
 
             <label className="text-sm font-medium" htmlFor="email">
